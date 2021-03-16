@@ -1,0 +1,27 @@
+.preview{
+   position: relative;
+}
+
+.preview__close{
+    position: absolute;
+    color: #fff;
+    top: 0;
+    margin: 5px;
+    font-size: 18px !important;
+    cursor: pointer;
+}
+
+.preview__right{
+    position: absolute;
+    right: 0;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview__right > .MuiSvgIcon-root {
+    margin-bottom: 10px;
+    margin-right: 5px;
+    font-size: 20px !important;
+    cursor: pointer;
+}
