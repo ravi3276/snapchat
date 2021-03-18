@@ -4,17 +4,28 @@ export const appSlice = createSlice({
   name: 'app',
   initialState: {
     user: null,
+    selectedImage: null,
   },
   reducers: {
     
-    incrementByAmount: (state, action) => {
+    login: (state, action) => {
       state.user = action.payload;
     },
+    logout: (state) => {
+      state.user= null;
+    },
+    selectedImage:(state, action)=>{
+      state.selectedImage = action.payload;
+    },
+    resetImage:(state)=> {
+      state.selectedImage = null;
+    }
   },
 });
 
-export const { incrementByAmount } = appSlice.actions;
+export const { login, logout, resetImage,selectedImage} = appSlice.actions;
 
-export const selectApp = state => state.app.user;
+export const selectUser = state => state.app.user;
+export const selectselectedImage = state => state.app.selectedImage;
 
 export default appSlice.reducer;

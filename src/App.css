@@ -6,3 +6,12 @@
     background-color:#fefc01;
     
 }
+
+.app__background{
+    background-color:#fff;
+    height: 400px;
+}
+
+.app__body{
+    background: url("https://smallimg.pngkey.com/png/small/22-225983_frame-transparent-mobile-mobile-frame-png-transparent.png") no-repeat center;
+}

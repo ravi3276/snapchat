@@ -8,8 +8,11 @@ import CreateIcon from '@material-ui/icons/Create';
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import TimerIcon from '@material-ui/icons/Timer';
-
-import './Preview.css'
+import SendIcon from '@material-ui/icons/Send';
+import './Preview.css';
+import { v4 as uuid } from 'uuid';
+import {db,storage} from './firebase';
+import firebase from 'firebase';
 function Preview() {
     const dispatch = useDispatch();
     const image=useSelector(selectCameraImage)
@@ -23,6 +26,29 @@ function Preview() {
     const close=()=>{
          dispatch(resetCameraImage())
          history.replace('/')
+    }
+
+    const sendpost=()=>{
+        const id=uuid();
+        const uploadTask=storage.ref(`posts/${id}`).putString(image,'data_url')
+        uploadTask.on('state_changed',null,(error)=>{
+            console.log(error)
+        },()=>{
+            //complete function
+            storage.ref('posts').child(id).getDownloadURL()
+            .then((url)=>{
+                db.collection('posts').add({
+                    imageurl: url,
+                    username:'ravi',
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    read:false,
+                    // profilepic
+                });
+                history.replace('/chats')
+            })
+        })
+        
+
     }
 
     return (
@@ -41,6 +67,13 @@ function Preview() {
             </div>
 
             <img src={image} alt='' />
+
+            <div className="preview__footer"
+            onClick={sendpost}
+            >
+                <h2>send</h2>
+                <SendIcon className="preview__send"/>
+            </div>
         </div>
     )
 }
